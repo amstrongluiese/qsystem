@@ -1,0 +1,36 @@
+{
+  "name": "workspace",
+  "version": "0.0.0",
+  "license": "MIT",
+  "workspaces": [
+    "artifacts/*",
+    "lib/*",
+    "lib/integrations/*",
+    "scripts"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
+    "build": "npm run typecheck && npm run build --workspaces --if-present",
+    "typecheck:libs": "tsc --build",
+    "typecheck": "npm run typecheck:libs && npm run typecheck --workspaces --if-present",
+    "dev:api": "cross-env DOTENV_CONFIG_PATH=../../.env PORT=8080 npm run dev -w @workspace/api-server",
+    "dev:web": "cross-env PORT=5173 BASE_PATH=/ npm run dev -w @workspace/enrollment-system",
+    "build:local": "npm run build -w @workspace/enrollment-system && npm run build -w @workspace/api-server",
+    "start": "cross-env DOTENV_CONFIG_PATH=../../.env NODE_ENV=production node --enable-source-maps artifacts/api-server/dist/index.mjs",
+    "db:push": "cross-env DOTENV_CONFIG_PATH=../../.env npm run push -w @workspace/db",
+    "db:seed": "cross-env DOTENV_CONFIG_PATH=../../.env npm run seed -w @workspace/db"
+  },
+  "private": true,
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "prettier": "^3.8.3",
+    "typescript": "~5.9.3"
+  },
+  "overrides": {
+    "esbuild-plugin-pino": {
+      "esbuild": "0.27.3"
+    },
+    "@esbuild-kit/esm-loader": "npm:tsx@^4.21.0"
+  }
+}

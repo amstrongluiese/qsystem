@@ -220,10 +220,6 @@ function RegistrationCard() {
         {step === "start" && (
           <motion.div key="start" initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -16 }} transition={{ duration: 0.22 }} className="p-10 flex flex-col items-center justify-center text-center">
             <CcsLogo size="large" className="mb-6" />
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-4"
-              style={{ background: "rgba(128,0,32,0.08)", color: MAROON }}>
-              New Students
-            </div>
             <h3 className="text-xl font-black text-gray-900 mb-2 uppercase tracking-wide">Start Queue</h3>
             <p className="text-sm text-gray-500 mb-8 max-w-62.5">
               Choose your student type, enter your name, and receive your queue number instantly.
@@ -279,8 +275,10 @@ function RegistrationCard() {
             <p className="text-xs text-gray-400 mb-5">Enter your details to get your queue number.</p>
             <div className="space-y-3">
               <div>
-                <label style={{ display: "block", fontSize: "10px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#6b7280", marginBottom: "5px" }}>Full Name</label>
+                <label htmlFor="student-full-name" style={{ display: "block", fontSize: "10px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#6b7280", marginBottom: "5px" }}>Full Name</label>
                 <input
+                  id="student-full-name"
+                  name="fullName"
                   type="text" placeholder="Juan dela Cruz" value={form.fullName}
                   onChange={(e) => { setForm(f => ({ ...f, fullName: e.target.value })); setErrors({}); }}
                   style={{ ...inputStyle, border: errors.fullName ? "1.5px solid #ef4444" : inputStyle.border }}
@@ -290,10 +288,10 @@ function RegistrationCard() {
                 {errors.fullName && <p style={{ color: "#ef4444", fontSize: "11px", marginTop: "3px" }}>{errors.fullName}</p>}
               </div>
               <div>
-                <label style={{ display: "block", fontSize: "10px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#6b7280", marginBottom: "5px" }}>
+                <label htmlFor="student-number" style={{ display: "block", fontSize: "10px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#6b7280", marginBottom: "5px" }}>
                   Student No. <span style={{ fontWeight: 400, textTransform: "none", letterSpacing: 0, color: "#9ca3af" }}>(optional)</span>
                 </label>
-                <input type="text" placeholder="2023-0001" value={form.studentNumber}
+                <input id="student-number" name="studentNumber" type="text" placeholder="2023-0001" value={form.studentNumber}
                   onChange={(e) => setForm(f => ({ ...f, studentNumber: e.target.value }))}
                   style={inputStyle}
                   onFocus={e => e.currentTarget.style.border = `1.5px solid ${MAROON}`}
@@ -765,7 +763,7 @@ export default function StudentLanding() {
                         let statusText = "Offline";
                         if (isAvailable) { dotColor = "#16a34a"; statusText = "Online"; }
                         else if (isBusy) { dotColor = MAROON; statusText = "Busy"; }
-                        else if (isBreak) { dotColor = "#f59e0b"; statusText = "Break"; }
+                        else if (isBreak) { dotColor = "#f59e0b"; statusText = "Lunch Break"; }
 
                         return (
                           <div key={c.id} className="flex items-center justify-between px-3 py-2 rounded-lg"
@@ -857,13 +855,14 @@ export default function StudentLanding() {
       <footer style={{ padding: "40px 0 32px", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
         <div className="max-w-7xl mx-auto px-8 lg:px-16 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center"
-              style={{ background: `linear-gradient(135deg, ${MAROON} 0%, ${MAROON_DARK} 100%)` }}>
-              <span style={{ color: "white", fontWeight: 900, fontSize: "11px" }}>CCS</span>
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center">
+                <CcsLogo size="small" className="mb-6" />
+          
             </div>
             <div>
               <p style={{ fontWeight: 700, fontSize: "13px", color: "#374151", lineHeight: 1 }}>College of Computer Studies</p>
               <p style={{ fontSize: "11px", color: "#9ca3af" }}>Enrollment Queue &nbsp;·&nbsp; AY 2025–2026</p>
+              <p style={{ fontSize: "11px", color: "#9ca3af" }}>Developed by Luiese Amstrong</p>
             </div>
           </div>
           <div className="flex items-center gap-2">

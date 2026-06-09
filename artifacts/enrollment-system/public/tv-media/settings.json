@@ -1,0 +1,300 @@
+{
+  "muted": false,
+  "audioEnabled": true,
+  "volume": 0.66,
+  "fullscreenEnabled": true,
+  "fullscreenRequestId": 1780988632270,
+  "voiceAnnouncementEnabled": true,
+  "notificationSoundEnabled": true,
+  "announcementVolume": 1,
+  "announcementChimeVolume": 1,
+  "voicePriorityBoost": true,
+  "announcementLanguage": "english",
+  "announcementAccent": "en-US",
+  "announcementGender": "female",
+  "announcementVoiceName": "",
+  "announcementTwice": true,
+  "announcementVoiceId": "",
+  "announcementVoiceGender": "female",
+  "announcementRate": 1,
+  "announcementPitch": 1,
+  "autoPlay": true,
+  "manualAnnouncementVoiceCommand": {
+    "id": "announcement-speak-15-1780994018019-3ae5a984-1427-46e0-aaf8-a432078a68d0",
+    "type": "announcement",
+    "announcementId": 15,
+    "title": "",
+    "message": "Hello Students",
+    "text": "Hello Students",
+    "createdAt": "2026-06-09T08:33:38.020Z"
+  },
+  "manualVoiceEvents": [
+    {
+      "id": "announcement-9-1780984806878-bc679bb1-f7c4-406f-a13e-dc5efb5b1210",
+      "type": "announcement",
+      "announcementId": 9,
+      "title": "",
+      "message": "Hello Student",
+      "text": "Hello Student",
+      "createdAt": "2026-06-09T06:00:06.878Z"
+    },
+    {
+      "id": "announcement-9-1780984815432-b0831a42-f756-4313-8e6b-2abfce871df2",
+      "type": "announcement",
+      "announcementId": 9,
+      "title": "",
+      "message": "Hello Student",
+      "text": "Hello Student",
+      "createdAt": "2026-06-09T06:00:15.432Z"
+    },
+    {
+      "id": "announcement-13-1780985054153-7c3c611c-35cf-4910-8554-fa0ee64eb899",
+      "type": "announcement",
+      "announcementId": 13,
+      "title": "",
+      "message": "Please submit your grade slip to qualify for the Dean's List.",
+      "text": "Please submit your grade slip to qualify for the Dean's List.",
+      "createdAt": "2026-06-09T06:04:14.153Z"
+    },
+    {
+      "id": "announcement-13-1780985064526-de021d66-5a63-40ec-b05e-b9630ec623a2",
+      "type": "announcement",
+      "announcementId": 13,
+      "title": "",
+      "message": "Please submit your grade slip to qualify for the Dean's List.",
+      "text": "Please submit your grade slip to qualify for the Dean's List.",
+      "createdAt": "2026-06-09T06:04:24.526Z"
+    },
+    {
+      "id": "announcement-9-1780987529902-bdb21b3f-7db6-4263-a211-2d8dd09b5996",
+      "type": "announcement",
+      "announcementId": 9,
+      "title": "",
+      "message": "Hello Student",
+      "text": "Hello Student",
+      "createdAt": "2026-06-09T06:45:29.902Z"
+    },
+    {
+      "id": "announcement-13-1780987591354-febe64f7-91c2-493a-9700-5a94024d495a",
+      "type": "announcement",
+      "announcementId": 13,
+      "title": "",
+      "message": "Please submit your grade slip to qualify for the Dean's List.",
+      "text": "Please submit your grade slip to qualify for the Dean's List.",
+      "createdAt": "2026-06-09T06:46:31.354Z"
+    },
+    {
+      "id": "announcement-9-1780987618601-bbed8384-b973-42eb-b86a-7800d44b72a8",
+      "type": "announcement",
+      "announcementId": 9,
+      "title": "",
+      "message": "Hello Student",
+      "text": "Hello Student",
+      "createdAt": "2026-06-09T06:46:58.601Z"
+    },
+    {
+      "id": "announcement-13-1780987644396-e7c24905-f616-444b-a100-9b1ad56895fa",
+      "type": "announcement",
+      "announcementId": 13,
+      "title": "",
+      "message": "Please submit your grade slip to qualify for the Dean's List.",
+      "text": "Please submit your grade slip to qualify for the Dean's List.",
+      "createdAt": "2026-06-09T06:47:24.397Z"
+    },
+    {
+      "id": "announcement-14-1780987654702-c8064641-ee0b-4932-8186-5c7dcf0b97c3",
+      "type": "announcement",
+      "announcementId": 14,
+      "title": "",
+      "message": "To claim your ID, proceed to the ZEN 2 Building.",
+      "text": "To claim your ID, proceed to the ZEN 2 Building.",
+      "createdAt": "2026-06-09T06:47:34.702Z"
+    },
+    {
+      "id": "announcement-9-1780988660421-9406df7d-b5fa-45ec-9f24-8dd07ce5b4fc",
+      "type": "announcement",
+      "announcementId": 9,
+      "title": "",
+      "message": "Hello Student",
+      "text": "Hello Student",
+      "createdAt": "2026-06-09T07:04:20.421Z"
+    },
+    {
+      "id": "announcement-9-1780988669044-e6ce4fb6-4e66-4d85-ba0b-9e414b124b3c",
+      "type": "announcement",
+      "announcementId": 9,
+      "title": "",
+      "message": "Hello Student",
+      "text": "Hello Student",
+      "createdAt": "2026-06-09T07:04:29.044Z"
+    },
+    {
+      "id": "announcement-9-1780988848125-890ab54e-40ea-44f9-8854-ef84a4b3eed4",
+      "type": "announcement",
+      "announcementId": 9,
+      "title": "",
+      "message": "Hello Student",
+      "text": "Hello Student",
+      "createdAt": "2026-06-09T07:07:28.125Z"
+    },
+    {
+      "id": "announcement-9-1780988860220-3580a832-797b-4c1e-b5ae-84e4079c6f73",
+      "type": "announcement",
+      "announcementId": 9,
+      "title": "",
+      "message": "Hello Student",
+      "text": "Hello Student",
+      "createdAt": "2026-06-09T07:07:40.220Z"
+    },
+    {
+      "id": "announcement-9-1780991329310-faf1c7cb-15bf-4b67-a879-3aeaeb0e74bb",
+      "type": "announcement",
+      "announcementId": 9,
+      "title": "",
+      "message": "Hello Student",
+      "text": "Hello Student",
+      "createdAt": "2026-06-09T07:48:49.310Z"
+    },
+    {
+      "id": "announcement-13-1780991336030-01ecde9b-e6fa-4d82-894e-fb9f7bf91582",
+      "type": "announcement",
+      "announcementId": 13,
+      "title": "",
+      "message": "Please submit your grade slip to qualify for the Dean's List.",
+      "text": "Please submit your grade slip to qualify for the Dean's List.",
+      "createdAt": "2026-06-09T07:48:56.030Z"
+    },
+    {
+      "id": "announcement-9-1780991368091-738594f2-ea20-495f-90fe-17e6fb23de81",
+      "type": "announcement",
+      "announcementId": 9,
+      "title": "",
+      "message": "Hello Student",
+      "text": "Hello Student",
+      "createdAt": "2026-06-09T07:49:28.091Z"
+    },
+    {
+      "id": "call-again-55-1780991501039-79348177-15e9-492e-9cba-9729620f4eff",
+      "type": "queue_call_again",
+      "queueId": 55,
+      "title": "Queue Number DT-001",
+      "message": "luiese amstrong. Please proceed to Tagger 3.",
+      "text": "Queue Number DT-001. luiese amstrong. Please proceed to Tagger 3.",
+      "createdAt": "2026-06-09T07:51:41.041Z"
+    },
+    {
+      "id": "announcement-9-1780991542106-dc901e54-aa96-4e8e-b4fc-b34008eda696",
+      "type": "announcement",
+      "announcementId": 9,
+      "title": "",
+      "message": "Hello Student",
+      "text": "Hello Student",
+      "createdAt": "2026-06-09T07:52:22.106Z"
+    },
+    {
+      "id": "call-again-55-1780992004506-f0af9cf3-93c1-4607-bc35-d51aaf46d109",
+      "type": "queue_call_again",
+      "queueId": 55,
+      "title": "Queue Number DT-001",
+      "message": "luiese amstrong. Please proceed to Tagger 3.",
+      "text": "Queue Number DT-001. luiese amstrong. Please proceed to Tagger 3.",
+      "createdAt": "2026-06-09T08:00:04.507Z"
+    },
+    {
+      "id": "announcement-9-1780992790731-aca48d9d-f55e-4257-942f-f17a9732b577",
+      "type": "announcement",
+      "announcementId": 9,
+      "title": "",
+      "message": "Hello Student",
+      "text": "Hello Student",
+      "createdAt": "2026-06-09T08:13:10.731Z"
+    },
+    {
+      "id": "announcement-13-1780993277344-afb52f65-759b-41f3-9565-402caec9ee12",
+      "type": "announcement",
+      "announcementId": 13,
+      "title": "",
+      "message": "Please submit your grade slip to qualify for the Dean's List.",
+      "text": "Please submit your grade slip to qualify for the Dean's List.",
+      "createdAt": "2026-06-09T08:21:17.344Z"
+    },
+    {
+      "id": "announcement-9-1780993306694-0d3cd0ac-a582-48ac-acef-693500e23393",
+      "type": "announcement",
+      "announcementId": 9,
+      "title": "",
+      "message": "Hello Student",
+      "text": "Hello Student",
+      "createdAt": "2026-06-09T08:21:46.695Z"
+    },
+    {
+      "id": "announcement-speak-15-1780993915852-200f1a34-3dba-4e0f-b3dd-a1f655fb1cc6",
+      "type": "announcement",
+      "announcementId": 15,
+      "title": "",
+      "message": "Hello Students",
+      "text": "Hello Students",
+      "createdAt": "2026-06-09T08:31:55.852Z"
+    },
+    {
+      "id": "announcement-speak-15-1780993984948-4a9ac177-f9c4-4649-ab92-769818a18d67",
+      "type": "announcement",
+      "announcementId": 15,
+      "title": "",
+      "message": "Hello Students",
+      "text": "Hello Students",
+      "createdAt": "2026-06-09T08:33:04.948Z"
+    },
+    {
+      "id": "announcement-speak-15-1780994018019-3ae5a984-1427-46e0-aaf8-a432078a68d0",
+      "type": "announcement",
+      "announcementId": 15,
+      "title": "",
+      "message": "Hello Students",
+      "text": "Hello Students",
+      "createdAt": "2026-06-09T08:33:38.020Z"
+    }
+  ],
+  "mediaTransitionType": "fade",
+  "mediaTransitionDuration": 0.8,
+  "lunchBreakEnabled": false,
+  "cutOffEnabled": false,
+  "tvBrowserName": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+  "tvBrowserVersion": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+  "tvBrowserIsFirefox": false,
+  "tvLastVoiceSync": "2026-06-08T08:41:32.394Z",
+  "tvConnectedClients": 4,
+  "lastTvVoiceEventId": "announcement-speak-15-1780994018019-3ae5a984-1427-46e0-aaf8-a432078a68d0",
+  "lastTvVoiceEventType": "announcement",
+  "lastTvVoiceEventAt": "2026-06-09T08:33:38.020Z",
+  "tvAvailableVoices": [
+    {
+      "voiceId": "Microsoft David - English (United States)",
+      "name": "Microsoft David - English (United States)",
+      "lang": "en-US",
+      "localService": true,
+      "default": true
+    },
+    {
+      "voiceId": "Microsoft Mark - English (United States)",
+      "name": "Microsoft Mark - English (United States)",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceId": "Microsoft Zira - English (United States)",
+      "name": "Microsoft Zira - English (United States)",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceId": "Google US English",
+      "name": "Google US English",
+      "lang": "en-US",
+      "localService": false,
+      "default": false
+    }
+  ]
+}

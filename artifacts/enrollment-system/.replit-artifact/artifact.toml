@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "SD Enrollment Queue System"
+version = "1.0.0"
+id = "artifacts/enrollment-system"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24991
+
+[services.development]
+run = "pnpm --filter @workspace/enrollment-system run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/enrollment-system", "run", "build" ]
+publicDir = "artifacts/enrollment-system/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24991"
+BASE_PATH = "/"

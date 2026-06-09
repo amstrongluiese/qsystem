@@ -1,0 +1,940 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: SD Department Enrollment Queue Management System API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: students
+    description: Student queue registration
+  - name: counters
+    description: Evaluator and tagger counter management
+  - name: queue
+    description: Queue operations and management
+  - name: admin
+    description: Admin monitoring and control
+  - name: announcements
+    description: Announcements management
+  - name: analytics
+    description: Analytics and statistics
+
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  # Student Registration
+  /students/register:
+    post:
+      operationId: registerStudent
+      tags: [students]
+      summary: Register a student into the queue
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StudentRegistrationInput"
+      responses:
+        "201":
+          description: Student registered and queue number assigned
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueueEntry"
+        "400":
+          description: Bad request
+
+  /students/{queueId}/status:
+    get:
+      operationId: getStudentQueueStatus
+      tags: [students]
+      summary: Get student queue status by queue ID
+      parameters:
+        - name: queueId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Queue status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueueEntry"
+        "404":
+          description: Queue entry not found
+
+  /students/track/{queueNumber}:
+    get:
+      operationId: getStudentQueueByNumber
+      tags: [students]
+      summary: Get student queue status by queue number string
+      parameters:
+        - name: queueNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Queue status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueueEntry"
+        "404":
+          description: Queue entry not found
+
+  # Counters
+  /counters:
+    get:
+      operationId: listCounters
+      tags: [counters]
+      summary: List all counters (evaluators and taggers)
+      responses:
+        "200":
+          description: List of counters
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Counter"
+    post:
+      operationId: createCounter
+      tags: [counters]
+      summary: Create a new counter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CounterInput"
+      responses:
+        "201":
+          description: Counter created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Counter"
+
+  /counters/{id}:
+    get:
+      operationId: getCounter
+      tags: [counters]
+      summary: Get a counter by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Counter details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Counter"
+        "404":
+          description: Counter not found
+    patch:
+      operationId: updateCounter
+      tags: [counters]
+      summary: Update counter status or details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CounterUpdate"
+      responses:
+        "200":
+          description: Counter updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Counter"
+        "404":
+          description: Counter not found
+    delete:
+      operationId: deleteCounter
+      tags: [counters]
+      summary: Delete a counter
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Counter deleted
+
+  /staff/login:
+    post:
+      operationId: staffLogin
+      tags: [counters]
+      summary: Staff login with username and password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StaffLoginInput"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StaffLoginResult"
+        "401":
+          description: Invalid credentials
+
+  /counters/{id}/login:
+    post:
+      operationId: counterLogin
+      tags: [counters]
+      summary: Staff login to a counter with PIN
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CounterLoginInput"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Counter"
+        "401":
+          description: Invalid PIN
+        "404":
+          description: Counter not found
+
+  # Queue management
+  /queue:
+    get:
+      operationId: listQueue
+      tags: [queue]
+      summary: List queue entries
+      parameters:
+        - name: counterId
+          in: query
+          schema:
+            type: integer
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [waiting, called, in_progress, completed, evaluation_completed, cancelled]
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [evaluator, tagger]
+      responses:
+        "200":
+          description: Queue entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/QueueEntry"
+
+  /queue/{id}/call:
+    post:
+      operationId: callStudent
+      tags: [queue]
+      summary: Call a student to the counter
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Student called
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueueEntry"
+        "404":
+          description: Queue entry not found
+
+  /queue/{id}/start:
+    post:
+      operationId: startProcessing
+      tags: [queue]
+      summary: Start evaluation or tagging for a student
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Processing started
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueueEntry"
+        "404":
+          description: Queue entry not found
+
+  /queue/{id}/complete:
+    post:
+      operationId: completeProcessing
+      tags: [queue]
+      summary: Complete evaluation or tagging for a student
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Processing completed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueueEntry"
+        "404":
+          description: Queue entry not found
+
+  /queue/{id}/transfer:
+    post:
+      operationId: transferToTagger
+      tags: [queue]
+      summary: Evaluator transfers a student to a specific tagger
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransferInput"
+      responses:
+        "200":
+          description: Student transferred to tagger
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueueEntry"
+        "404":
+          description: Queue entry not found
+
+  /queue/{id}/cancel:
+    post:
+      operationId: cancelQueueEntry
+      tags: [queue]
+      summary: Cancel a queue entry
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Queue entry cancelled
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueueEntry"
+        "404":
+          description: Queue entry not found
+
+  /queue/{id}/reassign:
+    post:
+      operationId: reassignQueue
+      tags: [queue]
+      summary: Admin reassigns a student to a different counter
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReassignInput"
+      responses:
+        "200":
+          description: Reassigned successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueueEntry"
+        "404":
+          description: Not found
+
+  # Admin endpoints
+  /admin/login:
+    post:
+      operationId: adminLogin
+      tags: [admin]
+      summary: Admin login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminLoginInput"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminAuthResult"
+        "401":
+          description: Invalid credentials
+
+  /admin/queue/reset:
+    post:
+      operationId: resetQueue
+      tags: [admin]
+      summary: Admin resets the entire queue
+      responses:
+        "200":
+          description: Queue reset
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActionResult"
+
+  /admin/counters/{id}/pause:
+    post:
+      operationId: pauseCounter
+      tags: [admin]
+      summary: Admin pauses a counter
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Counter paused
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Counter"
+
+  /admin/counters/{id}/resume:
+    post:
+      operationId: resumeCounter
+      tags: [admin]
+      summary: Admin resumes a paused counter
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Counter resumed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Counter"
+
+  # Announcements
+  /announcements:
+    get:
+      operationId: listAnnouncements
+      tags: [announcements]
+      summary: List all active announcements
+      responses:
+        "200":
+          description: Announcements list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Announcement"
+    post:
+      operationId: createAnnouncement
+      tags: [announcements]
+      summary: Create a new announcement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnnouncementInput"
+      responses:
+        "201":
+          description: Announcement created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Announcement"
+
+  /announcements/{id}:
+    delete:
+      operationId: deleteAnnouncement
+      tags: [announcements]
+      summary: Delete an announcement
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Announcement deleted
+
+  # Analytics
+  /analytics/summary:
+    get:
+      operationId: getAnalyticsSummary
+      tags: [analytics]
+      summary: Get overall enrollment analytics summary
+      responses:
+        "200":
+          description: Analytics summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalyticsSummary"
+
+  /analytics/counters:
+    get:
+      operationId: getCounterAnalytics
+      tags: [analytics]
+      summary: Get per-counter analytics
+      responses:
+        "200":
+          description: Counter analytics
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CounterAnalytics"
+
+  /tv/display:
+    get:
+      operationId: getTvDisplay
+      tags: [queue]
+      summary: Get data for TV/projector queue display
+      responses:
+        "200":
+          description: TV display data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TvDisplay"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    StudentRegistrationInput:
+      type: object
+      required: [fullName, category]
+      properties:
+        fullName:
+          type: string
+          minLength: 2
+        studentNumber:
+          type: ["string", "null"]
+        category:
+          type: string
+          enum: [regular, wep, transferee, old]
+        yearLevel:
+          type: ["string", "null"]
+          enum: ["1st", "2nd", "3rd", "4th", null]
+        regularity:
+          type: ["string", "null"]
+          enum: [regular, irregular, null]
+        isWep:
+          type: ["boolean", "null"]
+        isReturnee:
+          type: ["boolean", "null"]
+
+    QueueEntry:
+      type: object
+      required: [id, queueNumber, fullName, studentNumber, category, yearLevel, regularity, isWep, isReturnee, status, workflow, assignedCounterId, createdAt]
+      properties:
+        id:
+          type: integer
+        queueNumber:
+          type: string
+        fullName:
+          type: string
+        studentNumber:
+          type: ["string", "null"]
+        category:
+          type: string
+          enum: [regular, wep, transferee, old]
+        yearLevel:
+          type: ["string", "null"]
+        regularity:
+          type: ["string", "null"]
+        isWep:
+          type: ["boolean", "null"]
+        isReturnee:
+          type: ["boolean", "null"]
+        status:
+          type: string
+          enum: [waiting, called, in_progress, completed, evaluation_completed, cancelled]
+        workflow:
+          type: string
+          enum: [evaluation, direct_tagging]
+        assignedCounterId:
+          type: ["integer", "null"]
+        assignedCounterName:
+          type: ["string", "null"]
+        evaluatedBy:
+          type: ["integer", "null"]
+        taggerCounterId:
+          type: ["integer", "null"]
+        taggerCounterName:
+          type: ["string", "null"]
+        calledAt:
+          type: ["string", "null"]
+          format: date-time
+        startedAt:
+          type: ["string", "null"]
+          format: date-time
+        completedAt:
+          type: ["string", "null"]
+          format: date-time
+        waitingPosition:
+          type: ["integer", "null"]
+        estimatedWaitMinutes:
+          type: ["integer", "null"]
+        createdAt:
+          type: string
+          format: date-time
+
+    StaffLoginInput:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+
+    StaffLoginResult:
+      type: object
+      required: [token, role, counterId, counterName]
+      properties:
+        token:
+          type: string
+        role:
+          type: string
+          enum: [evaluator, tagger, hybrid, admin]
+        counterId:
+          type: integer
+        counterName:
+          type: string
+
+    Counter:
+      type: object
+      required: [id, name, type, status, isActive, isOnline, currentQueueCount, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+          enum: [evaluator, tagger, hybrid]
+        specialization:
+          type: ["string", "null"]
+        staffName:
+          type: ["string", "null"]
+        username:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [available, busy, paused, break, offline]
+        isActive:
+          type: boolean
+        isOnline:
+          type: boolean
+        currentQueueCount:
+          type: integer
+        currentStudentId:
+          type: ["integer", "null"]
+        currentStudentName:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+          format: date-time
+
+    CounterInput:
+      type: object
+      required: [name, type, username, pin]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          enum: [evaluator, tagger, hybrid]
+        specialization:
+          type: ["string", "null"]
+        staffName:
+          type: ["string", "null"]
+        username:
+          type: string
+          minLength: 3
+        pin:
+          type: string
+          minLength: 4
+
+    CounterUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        specialization:
+          type: ["string", "null"]
+        staffName:
+          type: ["string", "null"]
+        username:
+          type: string
+          minLength: 3
+        pin:
+          type: string
+          minLength: 4
+        status:
+          type: string
+          enum: [available, busy, paused, break, offline]
+        isActive:
+          type: boolean
+
+    CounterLoginInput:
+      type: object
+      required: [pin]
+      properties:
+        pin:
+          type: string
+
+    TransferInput:
+      type: object
+      required: [taggerCounterId]
+      properties:
+        taggerCounterId:
+          type: integer
+
+    ReassignInput:
+      type: object
+      required: [counterId]
+      properties:
+        counterId:
+          type: integer
+
+    AdminLoginInput:
+      type: object
+      required: [password]
+      properties:
+        password:
+          type: string
+
+    AdminAuthResult:
+      type: object
+      required: [success, token]
+      properties:
+        success:
+          type: boolean
+        token:
+          type: string
+
+    ActionResult:
+      type: object
+      required: [success, message]
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+
+    Announcement:
+      type: object
+      required: [id, message, isActive, createdAt]
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
+        isActive:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+
+    AnnouncementInput:
+      type: object
+      required: [message]
+      properties:
+        message:
+          type: string
+          minLength: 1
+
+    AnalyticsSummary:
+      type: object
+      required: [totalRegistered, totalCompleted, totalInProgress, totalWaiting, totalCancelled, averageWaitMinutes, averageProcessMinutes, evaluatorCount, taggerCount]
+      properties:
+        totalRegistered:
+          type: integer
+        totalCompleted:
+          type: integer
+        totalInProgress:
+          type: integer
+        totalWaiting:
+          type: integer
+        totalCancelled:
+          type: integer
+        averageWaitMinutes:
+          type: ["number", "null"]
+        averageProcessMinutes:
+          type: ["number", "null"]
+        evaluatorCount:
+          type: integer
+        taggerCount:
+          type: integer
+        categoryBreakdown:
+          type: array
+          items:
+            $ref: "#/components/schemas/CategoryCount"
+
+    CategoryCount:
+      type: object
+      required: [category, count]
+      properties:
+        category:
+          type: string
+        count:
+          type: integer
+
+    CounterAnalytics:
+      type: object
+      required: [counterId, counterName, counterType, totalServed, averageProcessMinutes, currentQueueCount]
+      properties:
+        counterId:
+          type: integer
+        counterName:
+          type: string
+        counterType:
+          type: string
+        totalServed:
+          type: integer
+        averageProcessMinutes:
+          type: ["number", "null"]
+        currentQueueCount:
+          type: integer
+
+    TvDisplay:
+      type: object
+      required: [nowServing, waitingForEvaluation, waitingForTagging, completed, announcements, totalWaiting, lunchBreakEnabled, cutOffEnabled]
+      properties:
+        nowServing:
+          type: array
+          items:
+            $ref: "#/components/schemas/TvQueueItem"
+        waitingForEvaluation:
+          type: array
+          items:
+            $ref: "#/components/schemas/TvQueueItem"
+        waitingForTagging:
+          type: array
+          items:
+            $ref: "#/components/schemas/TvQueueItem"
+        completed:
+          type: array
+          items:
+            $ref: "#/components/schemas/TvQueueItem"
+        announcements:
+          type: array
+          items:
+            type: string
+        totalWaiting:
+          type: integer
+        lunchBreakEnabled:
+          type: boolean
+        cutOffEnabled:
+          type: boolean
+        settings:
+          type: object
+
+    TvQueueItem:
+      type: object
+      required: [queueNumber, counterName, counterType, status]
+      properties:
+        queueNumber:
+          type: string
+        counterName:
+          type: string
+        counterType:
+          type: string
+          enum: [evaluator, tagger, hybrid]
+        status:
+          type: string
+        studentName:
+          type: ["string", "null"]
+        assignedTaggerName:
+          type: ["string", "null"]
+        calledAt:
+          type: ["string", "null"]
+          format: date-time

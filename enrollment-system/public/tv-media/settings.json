@@ -1,0 +1,101 @@
+{
+  "muted": false,
+  "audioEnabled": true,
+  "volume": 1,
+  "fullscreenEnabled": true,
+  "fullscreenRequestId": 1780979001488,
+  "voiceAnnouncementEnabled": true,
+  "notificationSoundEnabled": true,
+  "announcementVolume": 1,
+  "announcementChimeVolume": 1,
+  "voicePriorityBoost": true,
+  "announcementLanguage": "english",
+  "announcementAccent": "en-US",
+  "announcementGender": "female",
+  "announcementVoiceName": "",
+  "announcementTwice": true,
+  "announcementVoiceId": "",
+  "announcementVoiceGender": "female",
+  "announcementRate": 0.75,
+  "announcementPitch": 1,
+  "autoPlay": true,
+  "manualAnnouncementVoiceCommand": {
+    "id": "announcement-10-1780977600538",
+    "type": "announcement",
+    "announcementId": 10,
+    "title": "",
+    "message": "To claim your ID, proceed to the ZEN 2 Building.",
+    "text": "To claim your ID, proceed to the ZEN 2 Building.",
+    "createdAt": "2026-06-09T04:00:00.538Z"
+  },
+  "manualVoiceEvents": [
+    {
+      "id": "announcement-10-1780977453335",
+      "type": "announcement",
+      "announcementId": 10,
+      "title": "",
+      "message": "To claim your ID, proceed to the ZEN 2 Building.",
+      "text": "To claim your ID, proceed to the ZEN 2 Building.",
+      "createdAt": "2026-06-09T03:57:33.338Z"
+    },
+    {
+      "id": "announcement-10-1780977470050",
+      "type": "announcement",
+      "announcementId": 10,
+      "title": "",
+      "message": "To claim your ID, proceed to the ZEN 2 Building.",
+      "text": "To claim your ID, proceed to the ZEN 2 Building.",
+      "createdAt": "2026-06-09T03:57:50.050Z"
+    },
+    {
+      "id": "announcement-9-1780977478348",
+      "type": "announcement",
+      "announcementId": 9,
+      "title": "",
+      "message": "Hello Student",
+      "text": "Hello Student",
+      "createdAt": "2026-06-09T03:57:58.348Z"
+    },
+    {
+      "id": "announcement-11-1780977515694",
+      "type": "announcement",
+      "announcementId": 11,
+      "title": "",
+      "message": "Please get your Grade slip to submit for Deans list",
+      "text": "Please get your Grade slip to submit for Deans list",
+      "createdAt": "2026-06-09T03:58:35.694Z"
+    },
+    {
+      "id": "announcement-10-1780977531155",
+      "type": "announcement",
+      "announcementId": 10,
+      "title": "",
+      "message": "To claim your ID, proceed to the ZEN 2 Building.",
+      "text": "To claim your ID, proceed to the ZEN 2 Building.",
+      "createdAt": "2026-06-09T03:58:51.155Z"
+    },
+    {
+      "id": "announcement-12-1780977590670",
+      "type": "announcement",
+      "announcementId": 12,
+      "title": "",
+      "message": "Please submit your grade slip for Dean's List qualification",
+      "text": "Please submit your grade slip for Dean's List qualification",
+      "createdAt": "2026-06-09T03:59:50.670Z"
+    },
+    {
+      "id": "announcement-10-1780977600538",
+      "type": "announcement",
+      "announcementId": 10,
+      "title": "",
+      "message": "To claim your ID, proceed to the ZEN 2 Building.",
+      "text": "To claim your ID, proceed to the ZEN 2 Building.",
+      "createdAt": "2026-06-09T04:00:00.538Z"
+    }
+  ],
+  "mediaTransitionType": "fade",
+  "mediaTransitionDuration": 0.8,
+  "lunchBreakEnabled": false,
+  "cutOffEnabled": false,
+  "tvAvailableVoices": []
+}
